@@ -1,0 +1,47 @@
+.board {  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . ."
+      ". . ."
+      ". . .";
+    aspect-ratio: 1/1;
+    max-width: 80vh;
+    content: '';
+}
+
+.box {
+    cursor: not-allowed;
+    margin: 10px;
+    aspect-ratio: 1/1;
+    content: '';
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    border: 1px solid black;
+}
+
+.box-img {
+    width: 95%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}
+
+.box-inactive {
+    cursor: pointer;
+    margin: 10px;
+    aspect-ratio: 1/1;
+    content: '';
+
+    border: 1px solid black;
+}
+
+.box-inactive:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
