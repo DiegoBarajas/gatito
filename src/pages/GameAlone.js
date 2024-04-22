@@ -3,6 +3,9 @@ import Board from '../components/Board'
 import Modal from '../components/Modal'
 import { useParams, Link } from 'react-router-dom';
 
+import minimax from '../algorithms/minimax';
+import pseudoRandom from '../algorithms/pseudoRandom';
+
 const numeroAleatorio = Math.floor(Math.random() * 101);
 let num = 1;
 
@@ -60,7 +63,6 @@ const GameAlone = () => {
 
     /* BOTS */
     const easyGame = () => {
-        console.log('HOLA');
         const auxBoard = [];
         for(let i=0 ; i<3 ; i++){
             for(let j=0; j<3 ; j++){
@@ -79,11 +81,13 @@ const GameAlone = () => {
     }
 
     const mediumGame = () => {
-        console.log('MEDIUM');
+        const [row, col] = pseudoRandom([...board], 'o');
+        handleSelectBox(row, col);
     }
 
     const hardGame = () => {
-        console.log('HARD');
+        const [row, col] = minimax([...board], 'o');
+        handleSelectBox(row, col);
     }
     
 
@@ -105,7 +109,7 @@ const GameAlone = () => {
             <h2 className='player2-turn'>{turn === 'o' ? <u>Turno de PC (O)</u> : 'PC (O)'}</h2>
 
             <Modal
-                title={winner === '0' ? 'EMPATE' : `${winner === 'x' ? '¡Ganaste!' : 'Ganó PC :('}!`}
+                title={winner === '0' ? 'EMPATE' : `${winner === 'x' ? '¡Ganaste!' : 'Ganó PC :('}`}
                 body='¿Quieres jugar de nuevo?'
                 acceptText='Aceptar'
                 cancelText='Salir'
