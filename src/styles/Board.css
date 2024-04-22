@@ -1,3 +1,29 @@
+.board-body {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+
+    min-width: 100vw;
+    width: max-content;
+    max-width: 100vw;
+    
+    height: fit-content;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.container-board {
+    aspect-ratio: 1/1;
+    content: '';
+
+    width: calc( min(95vw, 80vh) );
+    height: calc( min(95vw, 80vh) );
+    
+    max-width: calc( min(95vw, 80vh) );
+    max-height: calc( min(95vw, 80vh) );
+}
+
 .board {  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -9,13 +35,28 @@
       ". . ."
       ". . .";
     aspect-ratio: 1/1;
-    max-width: 80vh;
     content: '';
+    transform: translateX(-100%);   
+    mix-blend-mode: multiply;
+    
+
+    width: calc( min(95vw, 80vh) );
+    height: calc( min(95vw, 80vh) );
+    
+    max-width: calc( min(95vw, 80vh) );
+    max-height: calc( min(95vw, 80vh) );
+}
+
+.video-backgorund {
+    z-index: -1;
+    aspect-ratio: 1/1;
+
+    width: 100%;
+    height: 100%;
 }
 
 .box {
     cursor: not-allowed;
-    margin: 10px;
     aspect-ratio: 1/1;
     content: '';
 
@@ -23,14 +64,14 @@
     justify-content: center;
     align-items: center;
 
-
-    border: 1px solid black;
+    width: 95%;
 }
 
-.box-img {
-    width: 95%;
+.box-video {
+    width: 80%;
     aspect-ratio: 1/1;
     object-fit: contain;
+    mix-blend-mode: multiply !important;  /* Aplica el blend mode aquí */
 }
 
 .box-inactive {
@@ -38,10 +79,27 @@
     margin: 10px;
     aspect-ratio: 1/1;
     content: '';
-
-    border: 1px solid black;
 }
 
-.box-inactive:hover{
-    background-color: rgba(0, 0, 0, 0.2);
+.box-inactive-cant {
+    cursor: not-allowed;
+    margin: 10px;
+    aspect-ratio: 1/1;
+    content: '';
+}
+
+.box-inactive-x:hover {
+    background: url('../assets/x.png');
+    filter: opacity(50%);
+    background-size: 130%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.box-inactive-o:hover {
+    background: url('../assets/o.png');
+    filter: opacity(50%);
+    background-size: 123%;
+    background-position: center;
+    background-repeat: no-repeat;
 }

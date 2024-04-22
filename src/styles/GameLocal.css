@@ -1,0 +1,40 @@
+.local-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    flex-direction: column;
+
+    overflow-x: hidden;
+}
+
+.player1-turn {
+    color: #FF0D00;
+    width: 100%;
+    font-size: 30px;
+    text-align: start;
+    
+    margin: 0px;
+    padding: 0px;
+    padding-left: 70px;
+    padding-top: 10px;
+}
+
+.player2-turn {
+    color: #012CFF;
+    width: 100%;
+    font-size: 30px;
+    text-align: end;
+    
+    margin: 0px;
+    padding: 0px;
+    margin-right: 70px;
+}
+
+.link-game-back {
+    width: 98%;
+    margin: 0px;
+    padding: 5px 0px 0px 20px;
+    text-decoration: underline;
+    font-size: 20px;
+}

@@ -1,18 +1,68 @@
-import React from 'react'
-import oImg from '../assets/o.png'
-import xImg from '../assets/x.png'
+import React, { useEffect, useState } from 'react'
+import circle1 from '../assets/circle1.mp4';
+import circle2 from '../assets/circle2.mp4';
+import circle3 from '../assets/circle3.mp4';
+import circle4 from '../assets/circle4.mp4';
+import circle5 from '../assets/circle5.mp4';
 
-const Box = ({ value='', onClick }) => {
+import equis1 from '../assets/equis1.mp4';
+import equis2 from '../assets/equis2.mp4';
+import equis3 from '../assets/equis3.mp4';
+import equis4 from '../assets/equis4.mp4';
+import equis5 from '../assets/equis5.mp4';
+
+const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay }) => {
+
+    const [ srcO, setSrcO ] = useState(null);
+    const [ srcX, setSrcX ] = useState(null);
+
+    useEffect(() => {
+        switch(type){
+            case 1:
+                setSrcO( circle1 );
+                setSrcX( equis1 );
+                break;
+
+            case 2:
+                setSrcO( circle2 );
+                setSrcX( equis2 );
+                break;
+
+            case 3:
+                setSrcO( circle3 );
+                setSrcX( equis3 );
+                break;
+                
+            case 4:
+                setSrcO( circle4 );
+                setSrcX( equis4 );
+                break;
+            case 5:
+                setSrcO( circle5 );
+                setSrcX( equis5 );
+                break;
+                
+            default:
+                setSrcO( circle1 );
+                setSrcX( equis1 );
+                break;
+        }
+    }, []);
+
     return value !== ''
         ? <div className='box'>
                 {
                     value === 'o'
-                        ? <img className='box-img' src={ oImg } alt='O'/>
-                        : <img className='box-img' src={ xImg } alt='X'/>
+                        ? <video className='box-video' autoPlay muted playsInline onEnded={() => setCanPlay(true)} onPlay={() => setCanPlay(false)}>
+                                <source src={srcO} type="video/mp4" />
+                            </video>
+                        : <video className='box-video' autoPlay muted playsInline>
+                            <source src={srcX} type="video/mp4" />
+                        </video>
                 }
         </div>
             
-        : <div className='box-inactive' onClick={onClick}> </div>
+        : <div className={canPlay ? `box-inactive box-inactive-${turn}` : 'box-inactive-cant'} onClick={canPlay ? onClick : () => {}}> </div>
 }
 
 export default Box

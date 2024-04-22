@@ -1,0 +1,47 @@
+.index-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-video {
+    max-height: 50vh;
+    width: 100vw;
+    object-fit: contain;
+}
+
+.footer-index {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.dev-p {
+    margin-left: 15px;
+    font-size: 20px;
+    padding: 0px;
+}
+
+.version-p {
+    margin-right: 15px;
+    font-size: 20px;
+    padding: 0px;
+}
+
+.buttons-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+}
+
+.button-menu {
+    width: 100%;
+    max-width: 500px;
+}

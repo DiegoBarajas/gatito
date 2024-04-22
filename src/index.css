@@ -1,13 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Patrick+Hand+SC);
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Patrick Hand SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  height: max-content;
+}
+
+video {
+  mix-blend-mode: multiply !important;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 10px,
+        #6E9BBF 6.5px,
+        #577F9F 7.5px,
+        transparent 12px,
+        transparent 22px
+    );
+    z-index: -5;
+    pointer-events: none;
+  min-height: 100vh;
+  height: max-content
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.line {
+  position: fixed;
+  content: '';
+  top: 0px;
+  left: 25px;
+  border-left: 2px #F19CBA solid;
+  height: 100vh;
+  z-index: -1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit; 
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  height: 100%;
 }
