@@ -26,7 +26,49 @@ const GameAlone = () => {
 
     useEffect(() => {
 
-        setWinner( checkForWinner(board) );
+        const win = checkForWinner(board);
+        setWinner( win );
+
+        if(win !== null){
+            let stats = JSON.parse( localStorage.getItem('stats') );
+            if(stats === null){
+                localStorage.setItem('stats', JSON.stringify(
+                    {
+                        easy: {
+                            pc: 0,
+                            player: 0,
+                            tie: 0
+                        },
+                        medium: {
+                            pc: 0,
+                            player: 0,
+                            tie: 0
+                        },
+                        hard: {
+                            pc: 0,
+                            player: 0,
+                            tie: 0
+                        }
+                    }
+                ));
+
+                stats = JSON.parse( localStorage.getItem('stats') );
+            }
+
+            let diff = 'easy';
+            if(difficulty === 'medium') diff = 'medium';
+            else if(difficulty === 'hard') diff = 'hard';
+
+            if(win === 'x'){
+                stats[diff]['player'] = (stats[diff]['player'] + 1);
+            }else if(win === 'o'){
+                stats[diff]['pc'] = (stats[diff]['pc'] + 1);
+            }else {
+                stats[diff]['tie'] = (stats[diff]['tie'] + 1);
+            }
+
+            localStorage.setItem('stats', JSON.stringify(stats));
+        }
 
     }, [board]);
 

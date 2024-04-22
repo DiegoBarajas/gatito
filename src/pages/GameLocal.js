@@ -47,7 +47,7 @@ const GameLocal = () => {
     return (
         <div className='local-body'>
             <Link className='link-game-back' to='/'> Volver Atras </Link>
-            <h2 className='player1-turn'> Jugador 1 (X){turn === 'x' ? ": Tu turno" : ''}</h2>
+            <h2 className='player1-turn'>{turn === 'x' ? <u>Jugador 1 (X): Tu turno</u> : 'Jugador 1 (X)'}</h2>
 
             <Board 
                 board={board} 
@@ -57,7 +57,7 @@ const GameLocal = () => {
                 types={types}
             />
 
-            <h2 className='player2-turn'> Jugador 2 (O){turn === 'o' ? ": Tu turno" : ''}</h2>
+            <h2 className='player2-turn'>{turn === 'o' ? <u>Jugador 2 (O): Tu turno</u> : 'Jugador 2 (O)'}</h2>
 
             <Modal
                 title={winner === '0' ? 'EMPATE' : `¡El ganador fue ${winner === 'x' ? 'Jugador 1' : 'Jugador 2'}!`}

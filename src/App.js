@@ -5,6 +5,7 @@ import Game from './pages/Game'
 import GameLocal from './pages/GameLocal'
 import ChooseDifficulty from './pages/ChooseDifficulty'
 import GameAlone from './pages/GameAlone'
+import Stats from './pages/Stats'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
 
           <Route path='/' element={ <Index /> } />
           <Route path='/game' element={ <Game /> } />
+          <Route path='/stats' element={ <Stats /> } />
 
           <Route path='/local' element={ <GameLocal /> } />
 
