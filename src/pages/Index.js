@@ -3,6 +3,7 @@ import '../styles/Index.css'
 import logo from '../assets/logo.mp4'
 import Button from '../components/Button'
 import { Link } from 'react-router-dom'
+import packageJson from '../../package.json'
 
 const Index = () => {
     return (
@@ -41,7 +42,7 @@ const Index = () => {
 
             <footer className='footer-index'>
                 <p className='dev-p'><b>devsau - 2024</b></p>
-                <p className='version-p'><b>Versión:</b> Beta 1.0.0</p>
+                <p className='version-p'><b>Versión:</b> {packageJson.version}</p>
             </footer>
         </div>
     )
