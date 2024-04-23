@@ -13,7 +13,10 @@ import RadioButton from '../components/RadioButton'
 const ChooseDifficulty = () => {
 
     const [ showModal, setShowModal ] = useState(false);
-    const [ rbChecked, setRbChecked ] = useState( [true, false, false] );
+    const [ simbolChecked, setSimbolChecked ] = useState( [true, false, false] );
+    const [ startsChecked, setStartsChecked ] = useState( [true, false, false] );
+
+    
     let settings = JSON.parse( localStorage.getItem('settings') );
 
     useEffect(() => {
@@ -22,16 +25,22 @@ const ChooseDifficulty = () => {
             const settJson = {
                 player: 'x',
                 playerName: 'Jugador',
-                starts: 1
+                starts: 'player'
             }
 
             localStorage.setItem('settings', JSON.stringify(settJson));
             settings = JSON.parse( localStorage.getItem('settings') );
         }else{
             switch(settings.player){
-                case 'x': setRbChecked([true, false, false]); break;
-                case 'o': setRbChecked([false, true, false]); break;
-                default: setRbChecked([false, false, true]); break;
+                case 'x': setSimbolChecked([true, false, false]); break;
+                case 'o': setSimbolChecked([false, true, false]); break;
+                default: setSimbolChecked([false, false, true]); break;
+            }
+
+            switch(settings.starts){
+                case 'player': setStartsChecked([true, false, false]); break;
+                case 'pc': setStartsChecked([false, true, false]); break;
+                default: setStartsChecked([false, false, true]); break;
             }
         }
 
@@ -43,10 +52,16 @@ const ChooseDifficulty = () => {
         if(name === '') name = 'Jugador';
 
         settings.playerName = name; 
-        switch(rbChecked.findIndex(item => item === true)){
+        switch(simbolChecked.findIndex(item => item === true)){
             case 0: settings.player = 'x'; break;
             case 1: settings.player = 'o'; break;
             case 2: settings.player = 'r'; break;
+        }
+
+        switch(startsChecked.findIndex(item => item === true)){
+            case 0: settings.starts = 'player'; break;
+            case 1: settings.starts = 'pc'; break;
+            case 2: settings.starts = 'random'; break;
         }
         
         localStorage.setItem('settings', JSON.stringify(settings));
@@ -57,7 +72,7 @@ const ChooseDifficulty = () => {
         const settJson = {
             player: 'x',
             playerName: 'Jugador',
-            starts: 1
+            starts: 'player'
         }
 
         localStorage.setItem('settings', JSON.stringify(settJson));
@@ -65,13 +80,21 @@ const ChooseDifficulty = () => {
 
 
         setShowModal(false);
+        window.location.reload();
     }
 
     const handleCheck = (index) => {
         const aux = [false, false, false];
         aux[index] = true;
 
-        setRbChecked(aux);
+        setSimbolChecked(aux);
+    }
+
+    const handleCheck2 = (index) => {
+        const aux = [false, false, false];
+        aux[index] = true;
+
+        setStartsChecked(aux);
     }
 
     return (
@@ -120,47 +143,84 @@ const ChooseDifficulty = () => {
 
             {
                 !showModal ? <></>
-                : <div className='modal-body' style={{ overflowY: 'hidden' }}>
-                    <div className="hoja" style={{ height: '70%', overflowY: 'auto' }}>
+                : <div className='modal-body' style={{ overflowY: 'hidden', width: 'max-content', minWidth: '100vw', minHeight: '100vh', height: '100%' }}>
+                    <div className="hoja" style={{ height: '75%', maxHeight: '75%', overflowY: 'auto'}}>
                         <div className='content-hoja'>
                             <h2>Configuración del juego</h2>
+                            
+                            <br/>
                             
                             <Input 
                                 id='inputName'
                                 label='Nombre: '
                                 value={settings.playerName}
                             />
+                            <br/>
 
                             <label className='label-input'>Elige tu simbolo:</label>
-
-
                             <div className='list-options-rb'>
                                 <div className='item-list-rb'>
-                                    <p style={{ color: '#FF0D00' }}>{ rbChecked[0] ? <u>X</u> :  "X"}</p>
+                                    <p style={{ color: '#FF0D00' }}>{ simbolChecked[0] ? <u>X</u> :  "X"}</p>
                                     <RadioButton 
                                         variant='1'
-                                        checked={rbChecked[0]}
+                                        checked={simbolChecked[0]}
                                         setChecked={handleCheck}
                                         index='0'
                                     />
                                 </div>
 
                                 <div className='item-list-rb'>
-                                    <p style={{ color: '#012CFF' }}>{ rbChecked[1] ? <u>O</u> :  "O"}</p>
+                                    <p style={{ color: '#012CFF' }}>{ simbolChecked[1] ? <u>O</u> :  "O"}</p>
                                     <RadioButton 
                                         variant='2'
-                                        checked={rbChecked[1]}
+                                        checked={simbolChecked[1]}
                                         setChecked={handleCheck}
                                         index='1'
                                     />
                                 </div>
 
                                 <div className='item-list-rb'>
-                                    <p style={{ color: '#41403E' }}>{ rbChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
+                                    <p style={{ color: '#41403E' }}>{ simbolChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
                                     <RadioButton 
                                         variant='3'
-                                        checked={rbChecked[2]}
+                                        checked={simbolChecked[2]}
                                         setChecked={handleCheck}
+                                        index='2'
+                                    />
+                                </div>
+                                
+                            </div>
+                            <br/>
+
+
+                            <label className='label-input'>Elige quien empieza la partida:</label>
+                            <div className='list-options-rb'>
+                                <div className='item-list-rb'>
+                                    <p style={{ color: '#41403E' }}>{ startsChecked[0] ? <u>Yo</u> :  "Yo"}</p>
+                                    <RadioButton 
+                                        variant='1'
+                                        checked={startsChecked[0]}
+                                        setChecked={handleCheck2}
+                                        index='0'
+                                    />
+                                </div>
+
+                                <div className='item-list-rb'>
+                                    <p style={{ color: '#41403E' }}>{ startsChecked[1] ? <u>PC</u> :  "PC"}</p>
+                                    <RadioButton 
+                                        variant='2'
+                                        checked={startsChecked[1]}
+                                        setChecked={handleCheck2}
+                                        index='1'
+                                    />
+                                </div>
+
+                                <div className='item-list-rb'>
+                                    <p style={{ color: '#41403E' }}>{ startsChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
+                                    <RadioButton 
+                                        variant='3'
+                                        checked={startsChecked[2]}
+                                        setChecked={handleCheck2}
                                         index='2'
                                     />
                                 </div>

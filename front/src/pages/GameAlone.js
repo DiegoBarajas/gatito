@@ -15,31 +15,35 @@ else if(numeroAleatorio < 69) num = 3
 else if(numeroAleatorio < 92) num = 4
 else num = 5
 
+var hasPlayed = false;
+
 const GameAlone = () => {
 
     const { difficulty } = useParams();
 
     let settings = JSON.parse( localStorage.getItem('settings') );
-    const [player, pc] = getPlayer( settings.player );
 
     useEffect(() => {
         if( settings === null ){
             const settJson = {
                 player: 'x',
                 playerName: 'Jugador',
-                starts: 1
+                starts: 'player'
             }
 
             localStorage.setItem('settings', JSON.stringify(settJson));
             settings = JSON.parse( localStorage.getItem('settings') );
         }
 
-    }, []);
-
+    }, []);  
 
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
-    const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) )
-    const [ turn, setTurn ] = useState(player);
+    const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
+
+    const [ player, setPlayer ] = useState( getPlayer(settings.player) );
+    const [ pc, setPc ] = useState( getPc(player) );
+    
+    const [ turn, setTurn ] = useState( whoStarts(settings.starts, player, pc) );
     const [ winner, setWinner ] = useState(null);
 
     useEffect(() => {
@@ -91,31 +95,50 @@ const GameAlone = () => {
     }, [board]);
 
     useEffect(() => {
-        if(checkForWinner(board) == null){
+
+        if(!boardIsEmpty(board)){
             
+            if(checkForWinner(board) == null){
+            
+                let bot = easyGame;
+                if(difficulty === 'medium') bot = mediumGame;
+                else if(difficulty === 'hard') bot = hardGame;
+                
+                if( turn === pc ){
+                    waitForCallback( bot );
+                }
+            }
+
+        }
+
+    }, [turn]);
+
+    useEffect(() => {
+
+        if(whoStarts(settings.starts, player, pc) === pc) {
             let bot = easyGame;
             if(difficulty === 'medium') bot = mediumGame;
             else if(difficulty === 'hard') bot = hardGame;
             
-            if( turn === pc ){
+            if(!hasPlayed){
+                hasPlayed = true;
                 waitForCallback( bot );
             }
-
         }
-    }, [turn]);
+    }, [])
 
     const handleSelectBox = (row, column) => {
         const aux = [...board];
 
         aux[row][column] = turn;
 
-        setTurn( turn === player ? pc : player );
+        setTurn( turn === 'x' ? 'o' : 'x' );
         setBoard(aux);
     }
 
     const restartGame = () => {
         setBoard([['', '', ''], ['', '', ''], ['', '', '']]);
-        setTurn(player);
+        setTurn( whoStarts(settings.starts, player, pc) );
         setWinner(null);
         setTypes( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) )
         document.querySelector('#board').play();
@@ -123,6 +146,7 @@ const GameAlone = () => {
 
     /* BOTS */
     const easyGame = () => {
+
         const auxBoard = [];
         for(let i=0 ; i<3 ; i++){
             for(let j=0; j<3 ; j++){
@@ -160,6 +184,8 @@ const GameAlone = () => {
 
             <h2 className='title-game'>{translateDifficulty(difficulty)}</h2>
 
+            <div className='space-game'>
+            </div>
             <h2 className='player1-turn' style={{ color: player === 'x' ? '#FF0D00' : '#012CFF' }}>{turn === player ? <u>Tu turno {settings.playerName} ({player})</u> : `${settings.playerName}(${player}) - Espera a PC`}</h2>
 
             <Board
@@ -232,13 +258,26 @@ function translateDifficulty(difficulty) {
   
 
 function getPlayer(player){
-    let p = ''
-    if(player === 'r') p = Math.random() < 0.5 ? 'x' : 'o';
-    else p = player;
-
-    return [ p, getPc(p) ];
+    if(player === 'r') return Math.random() < 0.5 ? 'x' : 'o';
+    else return player;
 }
 
 function getPc(player){
     return player === 'x' ? 'o' : 'x';
+}
+
+function whoStarts(starts, player, pc){
+    if(starts === 'random') return Math.random() < 0.5 ? player : pc;
+    else if(starts === 'player') return player;
+    else return pc;
+}
+
+function boardIsEmpty(board){
+    for(let i=0 ; i<3 ; i++){
+        for(let j=0 ; j<3 ; j++){
+            if( board[i][j] !== '' ) return false;
+        }
+    }
+
+    return true;
 }
