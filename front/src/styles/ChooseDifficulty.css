@@ -7,6 +7,28 @@
     margin: 10px;
 }
 
+.settings-buton-container {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.settings-buton {
+    width: 220px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-buton img {
+    height: 120%;
+    mix-blend-mode: multiply;
+    aspect-ratio: 1/1;
+    margin-right: 10px;
+}
+
 .title {
     width: 100%;
     text-align: center;
@@ -57,6 +79,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.list-options-rb {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+}
+
+.item-list-rb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-list-rb p {
+    color: #41403E;
 }
 
 @media (min-width: 650px) {

@@ -19,9 +19,27 @@ const GameAlone = () => {
 
     const { difficulty } = useParams();
 
+    let settings = JSON.parse( localStorage.getItem('settings') );
+    const [player, pc] = getPlayer( settings.player );
+
+    useEffect(() => {
+        if( settings === null ){
+            const settJson = {
+                player: 'x',
+                playerName: 'Jugador',
+                starts: 1
+            }
+
+            localStorage.setItem('settings', JSON.stringify(settJson));
+            settings = JSON.parse( localStorage.getItem('settings') );
+        }
+
+    }, []);
+
+
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) )
-    const [ turn, setTurn ] = useState('x');
+    const [ turn, setTurn ] = useState(player);
     const [ winner, setWinner ] = useState(null);
 
     useEffect(() => {
@@ -59,9 +77,9 @@ const GameAlone = () => {
             if(difficulty === 'medium') diff = 'medium';
             else if(difficulty === 'hard') diff = 'hard';
 
-            if(win === 'x'){
+            if(win === player){
                 stats[diff]['player'] = (stats[diff]['player'] + 1);
-            }else if(win === 'o'){
+            }else if(win === pc){
                 stats[diff]['pc'] = (stats[diff]['pc'] + 1);
             }else {
                 stats[diff]['tie'] = (stats[diff]['tie'] + 1);
@@ -79,7 +97,7 @@ const GameAlone = () => {
             if(difficulty === 'medium') bot = mediumGame;
             else if(difficulty === 'hard') bot = hardGame;
             
-            if( turn === 'o' ){
+            if( turn === pc ){
                 waitForCallback( bot );
             }
 
@@ -91,13 +109,13 @@ const GameAlone = () => {
 
         aux[row][column] = turn;
 
-        setTurn( turn === 'x' ? 'o' : 'x' );
+        setTurn( turn === player ? pc : player );
         setBoard(aux);
     }
 
     const restartGame = () => {
         setBoard([['', '', ''], ['', '', ''], ['', '', '']]);
-        setTurn('x');
+        setTurn(player);
         setWinner(null);
         setTypes( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) )
         document.querySelector('#board').play();
@@ -123,12 +141,15 @@ const GameAlone = () => {
     }
 
     const mediumGame = () => {
-        const [row, col] = pseudoRandom([...board], 'o');
+        const [row, col] = pseudoRandom([...board], pc);
         handleSelectBox(row, col);
     }
 
     const hardGame = () => {
-        const [row, col] = minimax([...board], 'o');
+
+        console.log([...board]);
+
+        const [row, col] = minimax([...board], pc);
         handleSelectBox(row, col);
     }
     
@@ -137,7 +158,9 @@ const GameAlone = () => {
         <div className='local-body'>
             <Link className='link-game-back' to='/alone/choose'> Volver Atras </Link>
 
-            <h2 className='player1-turn'>{turn === 'x' ? <u>"Tu turno Jugador (X)"</u> : 'Jugador (X) - Espera a PC'}</h2>
+            <h2 className='title-game'>{translateDifficulty(difficulty)}</h2>
+
+            <h2 className='player1-turn' style={{ color: player === 'x' ? '#FF0D00' : '#012CFF' }}>{turn === player ? <u>Tu turno {settings.playerName} ({player})</u> : `${settings.playerName}(${player}) - Espera a PC`}</h2>
 
             <Board
                 board={board} 
@@ -145,13 +168,13 @@ const GameAlone = () => {
                 onSelectBox={handleSelectBox} 
                 turn={turn}
                 types={types}
-                playerCanPlay={turn === 'x'}
+                playerCanPlay={turn === player}
             />
 
-            <h2 className='player2-turn'>{turn === 'o' ? <u>Turno de PC (O)</u> : 'PC (O)'}</h2>
+            <h2 className='player2-turn' style={{ color: pc === 'x' ? '#FF0D00' : '#012CFF' }}>{turn === pc ? <u>Turno de PC ({pc})</u> : `PC (${pc})`}</h2>
 
             <Modal
-                title={winner === '0' ? 'EMPATE' : `${winner === 'x' ? '¡Ganaste!' : 'Ganó PC :('}`}
+                title={winner === '0' ? 'EMPATE' : `${winner === player ? '¡Ganaste!' : 'Ganó PC :('}`}
                 body='¿Quieres jugar de nuevo?'
                 acceptText='Aceptar'
                 cancelText='Salir'
@@ -199,5 +222,23 @@ function waitForCallback(callback) {
     setTimeout(() => {
       callback();
     }, time);
-  }
+}
+
+function translateDifficulty(difficulty) {
+    if(difficulty === 'medium') return 'DIFICULTAD MEDIA'
+    else if(difficulty === 'hard') return "DIFICULTAD DIFICIL"
+    else return "DIFICULTAD FACIL"
+}
   
+
+function getPlayer(player){
+    let p = ''
+    if(player === 'r') p = Math.random() < 0.5 ? 'x' : 'o';
+    else p = player;
+
+    return [ p, getPc(p) ];
+}
+
+function getPc(player){
+    return player === 'x' ? 'o' : 'x';
+}

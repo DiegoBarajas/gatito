@@ -1,0 +1,24 @@
+.container-radio-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 35px;
+    height: 35px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+
+    margin-right: 17px;
+}
+
+.rb-img {
+    width: 35px;
+    height: 35px;
+    aspect-ratio: 1/1;
+
+    mix-blend-mode: multiply;
+}
+
+.hidden {
+    display: none;
+}

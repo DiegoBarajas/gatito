@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import { Link } from 'react-router-dom'
 import packageJson from '../../package.json'
 
-import statsImg from '../assets/stats.png'
+import statsImg from '../assets/stats.jpg'
 
 const Index = () => {
     return (
