@@ -136,7 +136,7 @@ const ChooseDifficulty = () => {
 
                             <div className='list-options-rb'>
                                 <div className='item-list-rb'>
-                                    <p>{ rbChecked[0] ? <u>X</u> :  "X"}</p>
+                                    <p style={{ color: '#FF0D00' }}>{ rbChecked[0] ? <u>X</u> :  "X"}</p>
                                     <RadioButton 
                                         variant='1'
                                         checked={rbChecked[0]}
@@ -146,7 +146,7 @@ const ChooseDifficulty = () => {
                                 </div>
 
                                 <div className='item-list-rb'>
-                                    <p>{ rbChecked[1] ? <u>O</u> :  "O"}</p>
+                                    <p style={{ color: '#012CFF' }}>{ rbChecked[1] ? <u>O</u> :  "O"}</p>
                                     <RadioButton 
                                         variant='2'
                                         checked={rbChecked[1]}
@@ -156,7 +156,7 @@ const ChooseDifficulty = () => {
                                 </div>
 
                                 <div className='item-list-rb'>
-                                    <p>{ rbChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
+                                    <p style={{ color: '#41403E' }}>{ rbChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
                                     <RadioButton 
                                         variant='3'
                                         checked={rbChecked[2]}
