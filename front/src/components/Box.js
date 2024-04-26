@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import circle1 from '../assets/circle1.mp4';
 import circle2 from '../assets/circle2.mp4';
 import circle3 from '../assets/circle3.mp4';
@@ -11,7 +11,9 @@ import equis3 from '../assets/equis3.mp4';
 import equis4 from '../assets/equis4.mp4';
 import equis5 from '../assets/equis5.mp4';
 
-const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay }) => {
+const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded }) => {
+    
+    const videoRef  = useRef(null);
 
     const [ srcO, setSrcO ] = useState(null);
     const [ srcX, setSrcX ] = useState(null);
@@ -49,14 +51,22 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay }) => {
         }
     }, []);
 
+    const handleError = (err) => {
+        alert(err);
+    }
+
+    const playMedia = () => {
+        videoRef.current.play();
+    }
+
     return value !== ''
         ? <div className='box'>
                 {
                     value === 'o'
-                        ? <video className='box-video' autoPlay muted playsInline onEnded={() => setCanPlay(true)} onPlay={() => setCanPlay(false)}>
+                        ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
                                 <source src={srcO} type="video/mp4" />
                             </video>
-                        : <video className='box-video' autoPlay muted playsInline>
+                        : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
                             <source src={srcX} type="video/mp4" />
                         </video>
                 }

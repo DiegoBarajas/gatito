@@ -1,6 +1,6 @@
 {
   "name": "gatito",
-  "version": "Beta 0.2.1",
+  "version": "Beta 0.3.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

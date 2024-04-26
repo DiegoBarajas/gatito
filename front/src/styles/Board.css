@@ -1,6 +1,6 @@
 .board-body {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
 
     min-width: 100vw;
@@ -22,6 +22,8 @@
     
     max-width: calc( min(95vw, 80vh) );
     max-height: calc( min(95vw, 80vh) );
+
+    mix-blend-mode: multiply;
 }
 
 .board {  
@@ -36,10 +38,8 @@
       ". . .";
     aspect-ratio: 1/1;
     content: '';
-    transform: translateX(-100%);   
-    mix-blend-mode: multiply;
-    
-
+    mix-blend-mode: multiply;    
+        
     width: calc( min(95vw, 80vh) );
     height: calc( min(95vw, 80vh) );
     
@@ -51,8 +51,44 @@
     z-index: -1;
     aspect-ratio: 1/1;
 
+    transform: translateX( calc(100%) );
+
     width: 100%;
     height: 100%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mix-blend-mode: multiply;
+}
+
+.winline {
+    transform: translateX( -100% );
+    width: 100%;
+    height: 100%;
+
+    mix-blend-mode: multiply;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.abajoooo {
+    z-index: -20;
+}
+
+.video-winline {
+    z-index: 2;
+    aspect-ratio: 1/1;
+
+    mix-blend-mode: multiply;
+
+    width: 80%;
+    height: 80%;
 }
 
 .box {
@@ -71,19 +107,17 @@
     width: 80%;
     aspect-ratio: 1/1;
     object-fit: contain;
-    mix-blend-mode: multiply !important;  /* Aplica el blend mode aquí */
+    mix-blend-mode: multiply !important;
 }
 
 .box-inactive {
     cursor: pointer;
-    margin: 10px;
     aspect-ratio: 1/1;
     content: '';
 }
 
 .box-inactive-cant {
     cursor: not-allowed;
-    margin: 10px;
     aspect-ratio: 1/1;
     content: '';
 }
@@ -94,6 +128,9 @@
     background-size: 130%;
     background-position: center;
     background-repeat: no-repeat;
+
+    content: 'X';
+
 }
 
 .box-inactive-o:hover {
@@ -102,4 +139,6 @@
     background-size: 123%;
     background-position: center;
     background-repeat: no-repeat;
+
+    content: 'O';
 }
