@@ -4,15 +4,6 @@ import Board from '../components/Board'
 import Modal from '../components/Modal'
 import { Link } from 'react-router-dom';
 
-const numeroAleatorio = Math.floor(Math.random() * 101);
-let num = 1;
-
-if(numeroAleatorio < 23) num = 1
-else if(numeroAleatorio < 46) num = 2
-else if(numeroAleatorio < 69) num = 3
-else if(numeroAleatorio < 92) num = 4
-else num = 5
-
 const GameLocal = () => {
 
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
@@ -121,39 +112,8 @@ function checkForWinner( board ){
 
     return null;
 }
-
-function waitForCallback(callback) {
-    let time = Math.floor(Math.random() * 2000) + 1500;
-  
-    setTimeout(() => {
-      callback();
-    }, time);
-}
-
-function translateDifficulty(difficulty) {
-    if(difficulty === 'medium') return 'DIFICULTAD MEDIA'
-    else if(difficulty === 'hard') return "DIFICULTAD DIFICIL"
-    else return "DIFICULTAD FACIL"
-}
-  
-
-function getPlayer(player){
-    if(player === 'r') return Math.random() < 0.5 ? 'x' : 'o';
-    else return player;
-}
-
-function getPc(player){
-    return player === 'x' ? 'o' : 'x';
-}
-
-function whoStarts(starts, player, pc){
-    if(starts === 'random') return Math.random() < 0.5 ? player : pc;
-    else if(starts === 'player') return player;
-    else return pc;
-}
-
 function generateBoardType(){
-    const numeroAleatorio = Math.floor(Math.random() * 101);
+    const numeroAleatorio = Math.floor(Math.random() * 51);
 
     if(numeroAleatorio < 23) return 1
     else if(numeroAleatorio < 46) return 2
@@ -187,21 +147,4 @@ function getWinnerCell(board){
     if (empate) return 0;
     
     return null;
-}
-
-function getSettings(){
-    const settings = JSON.parse(localStorage.getItem('settings'));
-
-    if( settings === null ){
-        const settJson = {
-            player: 'x',
-            playerName: 'Jugador',
-            starts: 'player'
-        }
-
-        localStorage.setItem('settings', JSON.stringify(settJson));
-        return settJson;
-    }
-
-    return settings;
 }

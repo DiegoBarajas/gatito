@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Board from '../components/Board'
 import Modal from '../components/Modal'
 import { useParams, Link } from 'react-router-dom';
@@ -10,16 +10,15 @@ import random from '../algorithms/randomSelection';
 const GameAlone = () => {
 
     const { difficulty } = useParams();
-    const isInitialRender = useRef(true);
     
-    const [ settings, setSettings ] = useState( getSettings() );
+    const [ settings ] = useState( getSettings() );
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
-    const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
-    const [ boardType, setBoardType ] = useState(generateBoardType());
+    const [ types ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
+    const [ boardType ] = useState(generateBoardType());
     const [ winnerCell, setWinnerCell ] = useState(null);
 
-    const [ player, setPlayer ] = useState( getPlayer(settings.player) );
-    const [ pc, setPc ] = useState( getPc(player) );
+    const [ player ] = useState( getPlayer(settings.player) );
+    const [ pc ] = useState( getPc(player) );
 
     const [ turn, setTurn ] = useState( whoStarts(settings.starts, player, pc) );
     const [ winner, setWinner ] = useState(null);
@@ -34,13 +33,27 @@ const GameAlone = () => {
         setCanPlay(false);
     }
 
-    useEffect(() => {     
+    useEffect(() => {
 
-        if (isInitialRender.current) {
-            isInitialRender.current = false;
-            return;
-        }
+        if( isBoardEmpty(board) )return;
+        nextPlay();
 
+    }, [turn]);
+    
+    const nextTurn = () => {
+        const win = checkForWinner( board );
+
+        if(win === null){
+            const next = turn === 'x' ? 'o' : 'x';
+            setTurn( next );       
+        }else{
+            setWinnerCell( getWinnerCell(board) );
+            setWinner(null)
+            setCanPlay(false);
+        }   
+    }
+
+    const nextPlay = () => {
         if(turn === pc){
 
             if(difficulty === 'hard') 
@@ -62,24 +75,14 @@ const GameAlone = () => {
         }else{
             setCanPlay(true);
         }
-
-    }, [turn]);
-    
-    const nextTurn = () => {
-        const win = checkForWinner( board );
-
-        if(win === null){
-            const nextTurn = turn === 'x' ? 'o' : 'x';
-            setTurn( nextTurn );           
-        }else{
-            setWinnerCell( getWinnerCell(board) );
-            setWinner(null)
-            setCanPlay(false);
-        }   
     }
 
     const restartGame = () => {
         window.location.reload();
+    }
+
+    const onBoardWrited = () => {
+        nextPlay();
     }
 
     const lineWrited = () => {
@@ -149,7 +152,7 @@ const GameAlone = () => {
                 canPlay={canPlay}
                 setCanPlay={setCanPlay}
                 onEnded={nextTurn}
-                settings={settings}
+                onBoardWrited={onBoardWrited}
                 winner={winnerCell}
                 handleEndedWinLine={lineWrited}
             />
@@ -202,7 +205,7 @@ function checkForWinner( board ){
 }
 
 function waitForCallback(callback) {
-    let time = Math.floor(Math.random() * 2000) + 1500;
+    let time = Math.floor(Math.random() * 2000);
   
     setTimeout(() => {
       callback();
@@ -229,6 +232,16 @@ function whoStarts(starts, player, pc){
     if(starts === 'random') return Math.random() < 0.5 ? player : pc;
     else if(starts === 'player') return player;
     else return pc;
+}
+
+function isBoardEmpty(board){
+    for(let i=0;i<3;i++){
+        for(let j=0;j<3;j++){
+            if(board[i][j] !== '') return false;
+        }
+    }
+
+    return true;
 }
 
 function generateBoardType(){
