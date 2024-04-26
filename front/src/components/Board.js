@@ -105,7 +105,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
             : <div className='container-board center'>
                 <div className='winline'>
-                    <video autoPlay className='video-winline' muted playsInline onEnded={handleEndedWinLine}>
+                    <video autoPlay className='video-winline' muted playsInline onEnded={handleEndedWinLine} onError={handleEndedWinLine}>
                       <source src={winLine} type="video/mp4" />
                           Cannot reproduce the media
                     </video>

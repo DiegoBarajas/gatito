@@ -33,11 +33,9 @@ const Index = () => {
                     </Button> 
                 </Link><br/>
 
-                <Link className='button-menu' to='/game'>
-                    <Button className='button-menu'>
-                        PVP en linea
-                    </Button>
-                </Link>
+                <Button className='button-menu' disabled>
+                    PVP en linea (Próximamente)
+                </Button>
 
             </div>
 

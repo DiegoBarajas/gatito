@@ -4,12 +4,14 @@ import circle2 from '../assets/circle2.mp4';
 import circle3 from '../assets/circle3.mp4';
 import circle4 from '../assets/circle4.mp4';
 import circle5 from '../assets/circle5.mp4';
+import circleImg from '../assets/o.png';
 
 import equis1 from '../assets/equis1.mp4';
 import equis2 from '../assets/equis2.mp4';
 import equis3 from '../assets/equis3.mp4';
 import equis4 from '../assets/equis4.mp4';
 import equis5 from '../assets/equis5.mp4';
+import equisImg from '../assets/x.png';
 
 const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded }) => {
     
@@ -17,6 +19,7 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
 
     const [ srcO, setSrcO ] = useState(null);
     const [ srcX, setSrcX ] = useState(null);
+    const [ error, setError ] = useState(false);
 
     useEffect(() => {
         switch(type){
@@ -51,9 +54,10 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
         }
     }, []);
 
-    const handleError = (err) => {
-        alert(err);
-    }
+    const handleError = (event) => {
+        setError(true);
+    };
+    
 
     const playMedia = () => {
         videoRef.current.play();
@@ -62,13 +66,15 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
     return value !== ''
         ? <div className='box'>
                 {
-                    value === 'o'
-                        ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
-                                <source src={srcO} type="video/mp4" />
+                    error
+                        ? <img className='image-emergency' src={ value === 'x' ? equisImg : circleImg } alt={value} onLoad={onEnded}/>
+                        : value === 'o'
+                            ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
+                                    <source src={srcO} type="video/mp4" />
+                                </video>
+                            : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
+                                <source src={srcX} type="video/mp4" />
                             </video>
-                        : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
-                            <source src={srcX} type="video/mp4" />
-                        </video>
                 }
         </div>
             

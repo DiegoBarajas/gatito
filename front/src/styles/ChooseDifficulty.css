@@ -11,6 +11,8 @@
     position: absolute;
     right: 10px;
     top: 10px;
+    mix-blend-mode: multiply;
+
 }
 
 .settings-buton {
@@ -20,6 +22,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    mix-blend-mode: multiply;
 }
 
 .settings-buton img {
@@ -52,6 +56,7 @@
     flex-direction: column;
     width: 80%;
     margin: 0px 50px 70px 50px;
+    mix-blend-mode: multiply;
 }
 
 .choose-buttons-img {
