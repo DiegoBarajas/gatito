@@ -6,34 +6,23 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background-color: #f0f0f0;
+
+  background-image: repeating-linear-gradient(
+    0deg,
+      transparent,
+      transparent 10px,
+      #6E9BBF 6.5px,
+      #577F9F 7.5px,
+      transparent 12px,
+      transparent 22px
+  );
+
   min-height: 100vh;
   height: max-content;
 }
 
 video {
   mix-blend-mode: multiply !important;
-}
-
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 10px,
-        #6E9BBF 6.5px,
-        #577F9F 7.5px,
-        transparent 12px,
-        transparent 22px
-    );
-    z-index: -5;
-    pointer-events: none;
-  min-height: 100%;
-  height: max-content
 }
 
 code {
@@ -58,4 +47,9 @@ a {
   font-size: inherit;
   width: 100%;
   height: 100%;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
 }
