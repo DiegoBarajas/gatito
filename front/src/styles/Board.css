@@ -91,6 +91,16 @@
     height: 80%;
 }
 
+.img-winline {
+    z-index: 2;
+    aspect-ratio: 1/1;
+
+    mix-blend-mode: multiply;
+
+    width: 80%;
+    height: 80%;
+}
+
 .box {
     cursor: not-allowed;
     aspect-ratio: 1/1;

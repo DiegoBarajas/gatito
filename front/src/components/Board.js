@@ -18,13 +18,25 @@ import winLine7 from '../assets/winline7.mp4';
 import winLine8 from '../assets/winline8.mp4';
 import tieLine from '../assets/tie.mp4';
 
+import winLine1Img from '../assets/winline1.png';
+import winLine2Img from '../assets/winline2.png';
+import winLine3Img from '../assets/winline3.png';
+import winLine4Img from '../assets/winline4.png';
+import winLine5Img from '../assets/winline5.png';
+import winLine6Img from '../assets/winline6.png';
+import winLine7Img from '../assets/winline7.png';
+import winLine8Img from '../assets/winline8.png';
+import tieLineImg from '../assets/tieLine.png';
+
 const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, setCanPlay, onBoardWrited, winner=null, handleEndedWinLine }) => {
 
   const videoRef  = useRef(null);
   const [ videoSrc, setVideoSrc ] = useState(null);
   const [ winLine, setWinLine ] = useState(null);
+  const [ winLineImg, setWinLineImg ] = useState(null);
 
   const [ usrCanPlay, setUsrCanPlay ] = useState(false)
+  const [ error, setError ] = useState(false)
 
   useEffect(() => {
     
@@ -41,15 +53,50 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   useEffect(() => {    
     switch (winner){
-      case 0: setWinLine(tieLine); break;
-      case 1: setWinLine(winLine1); break;
-      case 2: setWinLine(winLine2); break;
-      case 3: setWinLine(winLine3); break;
-      case 4: setWinLine(winLine4); break;
-      case 5: setWinLine(winLine5); break;
-      case 6: setWinLine(winLine6); break;
-      case 7: setWinLine(winLine7); break;
-      case 8: setWinLine(winLine8); break;
+      case 0: 
+        setWinLine(tieLine); 
+        setWinLineImg(tieLineImg); 
+        break;
+
+      case 1: 
+        setWinLine(winLine1); 
+        setWinLineImg(winLine1Img); 
+        break;
+
+      case 2: 
+        setWinLine(winLine2); 
+        setWinLineImg(winLine2Img); 
+        break;
+
+      case 3: 
+        setWinLine(winLine3); 
+        setWinLineImg(winLine3Img); 
+        break;
+
+      case 4: 
+        setWinLine(winLine4); 
+        setWinLineImg(winLine4Img); 
+        break;
+
+      case 5: 
+        setWinLine(winLine5); 
+        setWinLineImg(winLine5Img); 
+        break;
+
+      case 6: 
+        setWinLine(winLine6); 
+        setWinLineImg(winLine6Img); 
+        break;
+
+      case 7: 
+        setWinLine(winLine7); 
+        setWinLineImg(winLine7Img); 
+        break;
+
+      case 8: 
+        setWinLine(winLine8); 
+        setWinLineImg(winLine8Img); 
+        break;
       default: setWinLine(null); break;
     }
   }, [winner]);
@@ -61,6 +108,10 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   const playMedia = () => {
     videoRef.current.play();
+  }
+
+  const onError = () => {
+    setError(true);
   }
 
   return (
@@ -97,14 +148,21 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 </div>
             </div>
 
-            : <div className='container-board center'>
-                <div className='winline'>
-                    <video autoPlay className='video-winline' muted playsInline onEnded={handleEndedWinLine} onError={handleEndedWinLine}>
-                      <source src={winLine} type="video/mp4" />
-                          Cannot reproduce the media
-                    </video>
+            : error
+              ? <div className='container-board center'>
+                  <div className='winline'>
+                    <img src={winLineImg} alt='' className='img-winline' onLoad={handleEndedWinLine} />
+                  </div>
                 </div>
-            </div>
+
+              : <div className='container-board center'>
+                  <div className='winline'>
+                      <video autoPlay className='video-winline' muted playsInline onEnded={handleEndedWinLine} onError={onError}>
+                        <source src={winLine} type="video/mp4" />
+                            Cannot reproduce the media
+                      </video>
+                  </div>
+              </div>
         }
     </div>
   );

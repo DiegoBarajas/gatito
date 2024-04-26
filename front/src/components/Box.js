@@ -58,7 +58,6 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
         setError(true);
     };
     
-
     const playMedia = () => {
         videoRef.current.play();
     }

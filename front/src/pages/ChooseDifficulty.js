@@ -202,7 +202,7 @@ const ChooseDifficulty = () => {
                                 <div className='item-list-rb'>
                                     <p style={{ color: '#41403E' }}>{ startsChecked[0] ? <u>Yo</u> :  "Yo"}</p>
                                     <RadioButton 
-                                        variant='1'
+                                        variant='3'
                                         checked={startsChecked[0]}
                                         setChecked={handleCheck2}
                                         index='0'
@@ -212,7 +212,7 @@ const ChooseDifficulty = () => {
                                 <div className='item-list-rb'>
                                     <p style={{ color: '#41403E' }}>{ startsChecked[1] ? <u>PC</u> :  "PC"}</p>
                                     <RadioButton 
-                                        variant='2'
+                                        variant='4'
                                         checked={startsChecked[1]}
                                         setChecked={handleCheck2}
                                         index='1'
@@ -222,7 +222,7 @@ const ChooseDifficulty = () => {
                                 <div className='item-list-rb'>
                                     <p style={{ color: '#41403E' }}>{ startsChecked[2] ? <u>Aleatorio</u> :  "Aleatorio"}</p>
                                     <RadioButton 
-                                        variant='3'
+                                        variant='1'
                                         checked={startsChecked[2]}
                                         setChecked={handleCheck2}
                                         index='2'
