@@ -8,6 +8,12 @@ import packageJson from '../../package.json'
 import statsImg from '../assets/stats.jpg'
 
 const Index = () => {
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+    
     return (
         <div className='index-body'>
             <video className='logo-video' autoPlay muted playsInline>

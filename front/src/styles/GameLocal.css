@@ -10,25 +10,31 @@
 
 .player1-turn {
     color: #FF0D00;
-    width: 100%;
+    width: calc(100% - 25px);
     font-size: 30px;
     text-align: start;
     
     margin: 0px;
     padding: 0px;
-    padding-left: 70px;
     padding-top: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .player2-turn {
     color: #012CFF;
-    width: 100%;
+    width: calc(100% - 25px);
     font-size: 30px;
     text-align: end;
     
     margin: 0px;
     padding: 0px;
-    margin-right: 70px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .link-game-back {

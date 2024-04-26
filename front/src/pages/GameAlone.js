@@ -9,6 +9,11 @@ import random from '../algorithms/randomSelection';
 
 const GameAlone = () => {
 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+
     const { difficulty } = useParams();
     
     const [ settings ] = useState( getSettings() );

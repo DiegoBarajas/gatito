@@ -69,7 +69,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             {
               videoSrc === null 
                 ? <></>
-                : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(65%)' }}> 
+                : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                       <source src={videoSrc} type="video/mp4" />
                       Cannot reproduce the media
                   </video>

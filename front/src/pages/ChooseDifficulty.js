@@ -12,10 +12,14 @@ import RadioButton from '../components/RadioButton'
 
 const ChooseDifficulty = () => {
 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+
     const [ showModal, setShowModal ] = useState(false);
     const [ simbolChecked, setSimbolChecked ] = useState( [true, false, false] );
     const [ startsChecked, setStartsChecked ] = useState( [true, false, false] );
-
     
     let settings = JSON.parse( localStorage.getItem('settings') );
 

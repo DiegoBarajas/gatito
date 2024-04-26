@@ -5,6 +5,11 @@ import Modal from '../components/Modal';
 
 const Stats = () => {
 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+
     const stats = JSON.parse( localStorage.getItem('stats') );
     const [ showModal, setShowModal ] = useState(false);
 

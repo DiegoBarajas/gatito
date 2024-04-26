@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom';
 
 const GameLocal = () => {
 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
     const [ boardType, setBoardType ] = useState(generateBoardType());
@@ -48,6 +53,10 @@ const GameLocal = () => {
             setWinner(win);
         }, 1000);
     }
+
+    const onBoardWrited = () => {
+        setCanPlay(true);
+    }
     
 
     return (
@@ -65,6 +74,7 @@ const GameLocal = () => {
                 setCanPlay={setCanPlay}
                 onEnded={nextTurn}
                 winner={winnerCell}
+                onBoardWrited={onBoardWrited}
                 handleEndedWinLine={lineWrited}
             />
 
