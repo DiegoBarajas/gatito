@@ -7,6 +7,7 @@ import board2 from '../assets/board2.mp4';
 import board3 from '../assets/board3.mp4';
 import board4 from '../assets/board4.mp4';
 import board5 from '../assets/board5.mp4';
+import boardImg from '../assets/boardStatic.png';
 
 import winLine1 from '../assets/winline1.mp4';
 import winLine2 from '../assets/winline2.mp4';
@@ -36,7 +37,8 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ winLineImg, setWinLineImg ] = useState(null);
 
   const [ usrCanPlay, setUsrCanPlay ] = useState(false)
-  const [ error, setError ] = useState(false)
+  const [ error, setError ] = useState(false);
+  const [ errorBoard, setErrorBoard ] = useState(false);
 
   useEffect(() => {
     
@@ -120,10 +122,12 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             {
               videoSrc === null 
                 ? <></>
-                : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
-                      <source src={videoSrc} type="video/mp4" />
-                      Cannot reproduce the media
-                  </video>
+                : errorBoard
+                    ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onError={() => setErrorBoard(true)} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                          <source src={videoSrc} type="video/mp4" />
+                          Cannot reproduce the media
+                      </video>
             }
         </div>
 
