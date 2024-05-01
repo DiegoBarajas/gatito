@@ -1,5 +1,4 @@
 function minimax(tablero, player, opponent) {
-    // Si el juego ha terminado, retorna el valor del tablero
     if (esGanador(tablero, player)) {
       return 1;
     } else if (esGanador(tablero, opponent)) {
@@ -8,18 +7,14 @@ function minimax(tablero, player, opponent) {
       return 0;
     }
   
-    // Maximizar el valor para el jugador actual
     let mejorValor = -Infinity;
     let mejorMovimiento = null;
     for (let i = 0; i < tablero.length; i++) {
       if (tablero[i] === "") {
-        // Simular la jugada del jugador actual
         tablero[i] = player;
-        let valor = -minimax(tablero, opponent, player); // Se cambia el signo para alternar entre minimizar y maximizar
-        // Deshacer la jugada
+        let valor = -minimax(tablero, opponent, player);
         tablero[i] = "";
   
-        // Actualizar el mejor valor y movimiento
         if (valor > mejorValor) {
           mejorValor = valor;
           mejorMovimiento = i;
@@ -30,21 +25,18 @@ function minimax(tablero, player, opponent) {
   }
   
   function esGanador(tablero, player) {
-    // Comprobar si hay una fila completa con el símbolo del jugador
     for (let i = 0; i < 3; i++) {
       if (tablero[i*3] === player && tablero[i*3 + 1] === player && tablero[i*3 + 2] === player) {
         return true;
       }
     }
   
-    // Comprobar si hay una columna completa con el símbolo del jugador
     for (let i = 0; i < 3; i++) {
       if (tablero[i] === player && tablero[i + 3] === player && tablero[i + 6] === player) {
         return true;
       }
     }
   
-    // Comprobar si hay una diagonal con el símbolo del jugador
     if (tablero[0] === player && tablero[4] === player && tablero[8] === player) {
       return true;
     }
@@ -56,7 +48,6 @@ function minimax(tablero, player, opponent) {
   }
   
   function esEmpate(tablero) {
-    // Comprobar si hay espacios vacíos en el tablero
     for (let i = 0; i < tablero.length; i++) {
       if (tablero[i] === "") {
         return false;
