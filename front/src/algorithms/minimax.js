@@ -1,116 +1,95 @@
-function minimax(tablero, jugador) {
-    // Si el tablero está lleno o alguien ha ganado, se devuelve el valor correspondiente
-    if (esFinal(tablero) !== -1) {
-      return valorTablero(tablero, jugador);
-    }
-  
-    // Inicializar el mejor movimiento y su valor
-    let mejorMovimiento = { valor: -Infinity };
-  
-    // Recorrer todas las casillas vacías
-    for (let fila = 0; fila < 3; fila++) {
-      for (let columna = 0; columna < 3; columna++) {
-        if (tablero[fila][columna] === '') {
-          // Simular el movimiento del jugador actual
-          tablero[fila][columna] = jugador;
-  
-          // Obtener el valor minimax del siguiente movimiento del oponente
-          let valor = -minimax(tablero, jugador === 'x' ? 'o' : 'x');
-  
-          // Deshacer el movimiento simulado
-          tablero[fila][columna] = '';
-  
-          // Actualizar el mejor movimiento si el valor actual es mejor
-          if (valor > mejorMovimiento.valor) {
-            mejorMovimiento = { fila, columna, valor };
-          }
-        }
-      }
-    }
-  
-    // Devolver el valor del mejor movimiento
-    return mejorMovimiento.valor;
-  }
-  
-  // Función para evaluar el estado del tablero
-  function esFinal(tablero) {
-    // Comprobar si hay una fila completa
-    for (let fila = 0; fila < 3; fila++) {
-      if (tablero[fila][0] === tablero[fila][1] && tablero[fila][1] === tablero[fila][2] && tablero[fila][0] !== '') {
-        return tablero[fila][0];
-      }
-    }
-  
-    // Comprobar si hay una columna completa
-    for (let columna = 0; columna < 3; columna++) {
-      if (tablero[0][columna] === tablero[1][columna] && tablero[1][columna] === tablero[2][columna] && tablero[0][columna] !== '') {
-        return tablero[0][columna];
-      }
-    }
-  
-    // Comprobar diagonales
-    if (tablero[0][0] === tablero[1][1] && tablero[1][1] === tablero[2][2] && tablero[0][0] !== '') {
-      return tablero[0][0];
-    }
-    if (tablero[0][2] === tablero[1][1] && tablero[1][1] === tablero[2][0] && tablero[0][2] !== '') {
-      return tablero[0][2];
-    }
-  
-    // Comprobar si hay casillas vacías
-    for (let fila = 0; fila < 3; fila++) {
-      for (let columna = 0; columna < 3; columna++) {
-        if (tablero[fila][columna] === '') {
-          return -1; // El juego no ha terminado
-        }
-      }
-    }
-  
-    // Tablero lleno y nadie ha ganado
-    return 0;
-  }
-  
-  // Función para asignar un valor al tablero según el jugador
-  function valorTablero(tablero, jugador) {
-    if (esFinal(tablero) === jugador) {
+function minimax(tablero, player, opponent) {
+    // Si el juego ha terminado, retorna el valor del tablero
+    if (esGanador(tablero, player)) {
       return 1;
-    } else if (esFinal(tablero) === (jugador === 'x' ? 'o' : 'x')) {
+    } else if (esGanador(tablero, opponent)) {
       return -1;
-    } else {
+    } else if (esEmpate(tablero)) {
       return 0;
     }
-  }
   
-  // Función para encontrar la mejor jugada
-  function mejorJugada(tablero, jugador) {
-    // Implementar la función minimax con poda alfa-beta para encontrar la mejor jugada
-    let movimientos = [];
-    let mejorMovimiento = { valor: jugador === 'x' ? -Infinity : Infinity };
-    let alfa = -Infinity;
-    let beta = Infinity;
+    // Maximizar el valor para el jugador actual
+    let mejorValor = -Infinity;
+    let mejorMovimiento = null;
+    for (let i = 0; i < tablero.length; i++) {
+      if (tablero[i] === "") {
+        // Simular la jugada del jugador actual
+        tablero[i] = player;
+        let valor = -minimax(tablero, opponent, player); // Se cambia el signo para alternar entre minimizar y maximizar
+        // Deshacer la jugada
+        tablero[i] = "";
   
-    for (let fila = 0; fila < 3; fila++) {
-      for (let columna = 0; columna < 3; columna++) {
-        if (tablero[fila][columna] === '') {
-          tablero[fila][columna] = jugador;
-          let valor = minimax(tablero, jugador === 'x' ? 'o' : 'x', alfa, beta);
-          tablero[fila][columna] = '';
-  
-          if ((jugador === 'x' && valor > mejorMovimiento.valor) || (jugador === 'o' && valor < mejorMovimiento.valor)) {
-            mejorMovimiento = { fila, columna, valor };
-            movimientos = [{ fila, columna, valor }];
-          } else if (valor === mejorMovimiento.valor) {
-            movimientos.push({ fila, columna, valor });
-          }
+        // Actualizar el mejor valor y movimiento
+        if (valor > mejorValor) {
+          mejorValor = valor;
+          mejorMovimiento = i;
         }
       }
     }
-  
-    // Si hay varios movimientos con el mismo valor, elige uno aleatoriamente
-    if (movimientos.length > 1) {
-      mejorMovimiento = movimientos[Math.floor(Math.random() * movimientos.length)];
-    }
-  
-    return [ mejorMovimiento.fila, mejorMovimiento.columna ]
+    return mejorValor;
   }
   
-export default mejorJugada;
+  function esGanador(tablero, player) {
+    // Comprobar si hay una fila completa con el símbolo del jugador
+    for (let i = 0; i < 3; i++) {
+      if (tablero[i*3] === player && tablero[i*3 + 1] === player && tablero[i*3 + 2] === player) {
+        return true;
+      }
+    }
+  
+    // Comprobar si hay una columna completa con el símbolo del jugador
+    for (let i = 0; i < 3; i++) {
+      if (tablero[i] === player && tablero[i + 3] === player && tablero[i + 6] === player) {
+        return true;
+      }
+    }
+  
+    // Comprobar si hay una diagonal con el símbolo del jugador
+    if (tablero[0] === player && tablero[4] === player && tablero[8] === player) {
+      return true;
+    }
+    if (tablero[2] === player && tablero[4] === player && tablero[6] === player) {
+      return true;
+    }
+  
+    return false;
+  }
+  
+  function esEmpate(tablero) {
+    // Comprobar si hay espacios vacíos en el tablero
+    for (let i = 0; i < tablero.length; i++) {
+      if (tablero[i] === "") {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  function mejorJugada(tablero, player, opponent) {
+    let mejorMovimiento = null;
+    let mejorValor = -Infinity;
+    for (let i = 0; i < tablero.length; i++) {
+      if (tablero[i] === "") {
+        tablero[i] = player;
+        let valor = -minimax(tablero, opponent, player);
+        tablero[i] = "";
+        if (valor > mejorValor) {
+          mejorValor = valor;
+          mejorMovimiento = i;
+        }
+      }
+    }
+    return mejorMovimiento;
+  }
+
+  
+function getBestPlay(board, player){
+    const tablero = [board[0][0], board[0][1], board[0][2], board[1][0], board[1][1], board[1][2], board[2][0], board[2][1], board[2][2]]
+
+    const opponent = player === 'x' ? 'o' : 'x';
+    const indx = mejorJugada(tablero, player, opponent);
+
+    return [ Math.floor(indx / 3), indx % 3  ]
+}
+
+module.exports = getBestPlay;
