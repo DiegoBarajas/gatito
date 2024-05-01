@@ -19,6 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
+    z-index: -1;
 }
 
 .dev-p {
