@@ -34,6 +34,7 @@ const socketController = (io, socket) => {
 
         socket.join(gameCode);
         fs.writeFileSync(jsonPath, JSON.stringify(settings));
+        fs.chmodSync(jsonPath, 0o777);
 
         socket.emit('server:createRoom', {
             settings,
@@ -60,6 +61,8 @@ const socketController = (io, socket) => {
                 });
 
             fs.writeFileSync(jsonPath, JSON.stringify(actualConfig));
+            fs.chmodSync(jsonPath, 0o777);
+
             socket.join(code);
             
             io.to(code).emit('server:updateConfig', getConfig(actualConfig, socket.id));
@@ -103,6 +106,8 @@ const socketController = (io, socket) => {
                     else if(json.player2.id === null) json.player2.id = socket.id;
 
                     fs.writeFileSync(jsonPath, JSON.stringify(json));
+                    fs.chmodSync(jsonPath, 0o777);
+
                     socket.join(gameCode);
                     
                     io.to(gameCode).emit('server:updateConfig', getConfig(json, socket.id));
@@ -156,6 +161,8 @@ const socketController = (io, socket) => {
                 fs.unlinkSync(jsonPath);
             }else{
                 fs.writeFileSync(jsonPath, JSON.stringify(json));
+                fs.chmodSync(jsonPath, 0o777);
+
                 io.to(gameCode).emit('server:updateConfig', getConfig(json));
 
             }
@@ -185,6 +192,8 @@ const socketController = (io, socket) => {
                 fs.unlinkSync(jsonPath);
             }else{
                 fs.writeFileSync(jsonPath, JSON.stringify(json));
+                fs.chmodSync(jsonPath, 0o777);
+
                 io.to(gameCode).emit('server:updateConfig', getConfig(json));
             }
         }
@@ -205,6 +214,8 @@ const socketController = (io, socket) => {
             if(json.player2.id === socket.id) json.player2[key] = value
 
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
@@ -235,6 +246,8 @@ const socketController = (io, socket) => {
             }
 
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
@@ -255,6 +268,8 @@ const socketController = (io, socket) => {
             json.starts = starts;
 
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
@@ -306,6 +321,8 @@ const socketController = (io, socket) => {
             if(restart) io.to(gameCode).emit('server:restart', json);
             
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
@@ -349,6 +366,8 @@ const socketController = (io, socket) => {
                 fs.unlinkSync(jsonPath);
             }else{
                 fs.writeFileSync(jsonPath, JSON.stringify(json));
+                fs.chmodSync(jsonPath, 0o777);
+
                 io.to(gameCode).emit('server:updateConfig', getConfig(json, socket.id));
             }
         });
@@ -369,6 +388,8 @@ const socketController = (io, socket) => {
             json.game.winnerCell = getWinnerCell(json.game.board);
             
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
@@ -390,6 +411,8 @@ const socketController = (io, socket) => {
             io.to(gameCode).emit('server:sendMessage',  "El host ha indicado volver a la sala de espera");
 
             fs.writeFileSync(jsonPath, JSON.stringify(json));
+            fs.chmodSync(jsonPath, 0o777);
+
             io.to(gameCode).emit('server:updateConfig', json);
         }else{
             socket.emit('server:canBeHere', {
