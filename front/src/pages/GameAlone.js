@@ -8,13 +8,13 @@ import pseudoRandom from '../algorithms/pseudoRandom';
 import random from '../algorithms/randomSelection';
 
 const GameAlone = () => {
+    const { difficulty } = useParams();
+    document.title = 'Gatito - '+translateDifficulty(difficulty, false);
 
     window.scrollTo({
         top: 0,
         behavior: 'smooth' 
     });
-
-    const { difficulty } = useParams();
     
     const [ settings ] = useState( getSettings() );
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
@@ -217,10 +217,16 @@ function waitForCallback(callback) {
     }, time);
 }
 
-function translateDifficulty(difficulty) {
-    if(difficulty === 'medium') return 'DIFICULTAD MEDIA'
-    else if(difficulty === 'hard') return "DIFICULTAD DIFICIL"
-    else return "DIFICULTAD FACIL"
+function translateDifficulty(difficulty, upr=true) {
+    if(upr){
+        if(difficulty === 'medium') return 'DIFICULTAD MEDIA'
+        else if(difficulty === 'hard') return "DIFICULTAD DIFICIL"
+        else return "DIFICULTAD FACIL"
+    }else{
+        if(difficulty === 'medium') return 'Dificultad media'
+        else if(difficulty === 'hard') return "Dificultad dificil"
+        else return "Dificultad facil"
+    }
 }
   
 

@@ -13,7 +13,7 @@ import equis4 from '../assets/equis4.mp4';
 import equis5 from '../assets/equis5.mp4';
 import equisImg from '../assets/x.png';
 
-const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded }) => {
+const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded, style }) => {
     
     const videoRef  = useRef(null);
 
@@ -66,12 +66,12 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
         ? <div className='box'>
                 {
                     error
-                        ? <img className='image-emergency' src={ value === 'x' ? equisImg : circleImg } alt={value} onLoad={onEnded}/>
+                        ? <img className='image-emergency' src={ value === 'x' ? equisImg : circleImg } alt={value} onLoad={onEnded} style={style}/>
                         : value === 'o'
-                            ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
+                            ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia} style={style}>
                                     <source src={srcO} type="video/mp4" />
                                 </video>
-                            : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia}>
+                            : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia} style={style}>
                                 <source src={srcX} type="video/mp4" />
                             </video>
                 }

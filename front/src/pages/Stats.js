@@ -5,6 +5,8 @@ import Modal from '../components/Modal';
 
 const Stats = () => {
 
+    document.title = 'Gatito - Estádisticas'
+
     window.scrollTo({
         top: 0,
         behavior: 'smooth' 

@@ -8,7 +8,7 @@ import packageJson from '../../package.json'
 import statsImg from '../assets/stats.jpg'
 
 const Index = () => {
-
+    document.title = 'Gatito';
     window.scrollTo({
         top: 0,
         behavior: 'smooth' 
@@ -39,9 +39,11 @@ const Index = () => {
                     </Button> 
                 </Link><br/>
 
-                <Button className='button-menu' disabled>
-                    PVP en linea (Próximamente)
-                </Button>
+                <Link className='button-menu' to='/connect'>
+                    <Button className='button-menu'>
+                        PVP en linea
+                    </Button>
+                </Link>
 
             </div>
 

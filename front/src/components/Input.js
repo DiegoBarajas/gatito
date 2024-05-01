@@ -8,7 +8,7 @@ const Input = ({ type='text', label, id, value }) => {
     return (
         <div>
             <label htmlFor={id} className='label-input'>{label}</label>
-            <input 
+            <input
                 id={id}
                 className='input'
                 type={type}

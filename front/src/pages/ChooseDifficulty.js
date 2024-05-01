@@ -11,6 +11,7 @@ import Input from '../components/Input'
 import RadioButton from '../components/RadioButton'
 
 const ChooseDifficulty = () => {
+    document.title = 'Gatito - Elegir dificultad'
 
     window.scrollTo({
         top: 0,

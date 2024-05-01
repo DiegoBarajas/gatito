@@ -1,0 +1,42 @@
+.pnf-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 80vh;
+}
+
+.pnf-container {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.h1-pnf {
+    margin: 0px;
+    padding: 0px;
+    margin-top: -10px;
+}
+
+.p-pnf {
+    font-size: 20px;
+}
+
+.pnf-img {
+    width: 200px;
+    aspect-ratio: 1/1;
+    mix-blend-mode: multiply;
+    margin: 0px;
+    padding: 0px;
+}
+
+.back-home {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

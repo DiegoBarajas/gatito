@@ -58,3 +58,7 @@
     cursor: not-allowed;
     color:#a3a29e;
 }
+
+.button-disabled img {
+    filter: opacity(40%);
+}

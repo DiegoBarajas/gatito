@@ -132,17 +132,17 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
         </div>
 
         <div id='boardMain' className='container-board board'> 
-            <Box type={ types[0] } value={ board[0][0] } onClick={() => onSelectBox(0, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[1] } value={ board[0][1] } onClick={() => onSelectBox(0, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[2] } value={ board[0][2] } onClick={() => onSelectBox(0, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
+            <Box type={ types[0] } value={ board[0][0] } onClick={() => onSelectBox(0, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[1] } value={ board[0][1] } onClick={() => onSelectBox(0, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[2] } value={ board[0][2] } onClick={() => onSelectBox(0, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
 
-            <Box type={ types[3] } value={ board[1][0] } onClick={() => onSelectBox(1, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[4] } value={ board[1][1] } onClick={() => onSelectBox(1, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[5] } value={ board[1][2] } onClick={() => onSelectBox(1, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
+            <Box type={ types[3] } value={ board[1][0] } onClick={() => onSelectBox(1, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[4] } value={ board[1][1] } onClick={() => onSelectBox(1, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[5] } value={ board[1][2] } onClick={() => onSelectBox(1, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
 
-            <Box type={ types[6] } value={ board[2][0] } onClick={() => onSelectBox(2, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[7] } value={ board[2][1] } onClick={() => onSelectBox(2, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
-            <Box type={ types[8] } value={ board[2][2] } onClick={() => onSelectBox(2, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} />
+            <Box type={ types[6] } value={ board[2][0] } onClick={() => onSelectBox(2, 0)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[7] } value={ board[2][1] } onClick={() => onSelectBox(2, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
+            <Box type={ types[8] } value={ board[2][2] } onClick={() => onSelectBox(2, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
         </div>
 
         {
