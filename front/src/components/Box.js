@@ -68,10 +68,10 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
                     error
                         ? <img className='image-emergency' src={ value === 'x' ? equisImg : circleImg } alt={value} onLoad={onEnded} style={style}/>
                         : value === 'o'
-                            ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia} style={style}>
+                            ? <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onAbort={handleError} onStalled={handleError} onCanPlay={playMedia} style={style}>
                                     <source src={srcO} type="video/mp4" />
                                 </video>
-                            : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onCanPlay={playMedia} style={style}>
+                            : <video ref={videoRef} className='box-video' muted playsInline onEnded={onEnded} onPlay={() => setCanPlay(false)} onError={handleError} onAbort={handleError} onStalled={handleError} onCanPlay={playMedia} style={style}>
                                 <source src={srcX} type="video/mp4" />
                             </video>
                 }
