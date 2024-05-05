@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/Index.css'
 import logo from '../assets/logo.mp4'
 import Button from '../components/Button'
 import { Link } from 'react-router-dom'
 import packageJson from '../../package.json'
+
+import { socket } from '../socket';
 
 import statsImg from '../assets/stats.jpg'
 
@@ -13,6 +15,11 @@ const Index = () => {
         top: 0,
         behavior: 'smooth' 
     });
+
+    useEffect(() => {
+        socket.emit('log', 'INDEX')
+
+    }, [])
     
     return (
         <div className='index-body'>
