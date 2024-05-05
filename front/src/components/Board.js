@@ -40,7 +40,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ error, setError ] = useState(false);
   const [ errorBoard, setErrorBoard ] = useState(false);
 
-  const [ boardTimeOut, setBoardTimeOut ] = useState(null);
 
   useEffect(() => {
     
@@ -111,7 +110,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const playMedia = () => {
-    clearTimeout(boardTimeOut);
     videoRef.current.play();
   }
 
@@ -124,11 +122,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const loadStart = () => {
-    setBoardTimeOut(
-      setTimeout(() => {
-        setErrorBoard(true);
-      }, 5000)
-    );
+    alert('La carga ha comenzado')
   }
 
   return (
@@ -139,7 +133,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onLoadStart={loadStart} onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onLoadStart={loadStart} onLoadedData={() => alert('Loaded Data')} onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>
