@@ -114,7 +114,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   const playMedia = () => {
     try{
-      videoRef.current.play();
+      if(videoRef.current.paused) videoRef.current.play();
     }catch(err){
       alert(err);
     }
@@ -149,8 +149,8 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         onLoadStart={() => setMessage('Load Started')}
                         onLoadStartCapture={() => setMessage('Load Started Capture')}
                         onLoad={() => setMessage('Load')}
-                        onLoadedData={() => setMessage('Loaded Data')} 
-                        onLoadedMetadata={() => setMessage('Loaded Metadata')}
+                        onLoadedData={playMedia} 
+                        onLoadedMetadata={playMedia}
 
 
                         onEnded={handleEnded} 
