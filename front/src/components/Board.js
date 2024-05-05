@@ -65,7 +65,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }, [message]);
 
   useEffect(() => {
-    const video = document.getElementById('board');
+    const video = videoRef.current;
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (isMobile && video.autoplay === false) {
