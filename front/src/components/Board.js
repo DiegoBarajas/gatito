@@ -159,9 +159,12 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         onLoad={() => setMessage('Load')}
                         onLoadedData={() => setMessage('Loaded Data')}
                         onLoadedMetadata={() => setMessage('Loaded Meta Data')}
+                        onCanPlay={() => setMessage('Can Play')}
 
                         onError={() => setMessage('Error')}
-
+                        onAbort={() => setMessage('Abort')}
+                        onWaiting={() => setMessage('Waiting')}
+                        onPause={() => setMessage('Pause')}
                       >
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
@@ -190,25 +193,14 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
         }
 
         <button
-          style={{ position: 'fixed', bottom: 0, right: 0 }}
-          onClick={() => {
-            const video = videoRef.current;
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-            if (isMobile && video.autoplay === false) {
-              setMessage("La reproducción automática está restringida en dispositivos móviles.");
-              // Aquí puedes realizar acciones adicionales, como mostrar un mensaje al usuario o requerir una interacción para iniciar la reproducción del video.
-            } else {
-              setMessage("La reproducción automática está permitida o no es un dispositivo móvil.");
-              // Aquí puedes iniciar la reproducción automática del video u otras acciones.
-            }
-          }}
-        >Si</button>
-
-        <button
           style={{ position: 'fixed', bottom: 40, right: 0 }}
           onClick={() => {
-            videoRef.current.play();
+            try{
+              videoRef.current.play();
+              setMessage(videoRef.current)
+            }catch(err) {
+              setMessage("err Click")
+            }
           }}
         >No carga el tablero?</button>
         
