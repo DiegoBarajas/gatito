@@ -140,7 +140,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>
