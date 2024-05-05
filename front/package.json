@@ -1,6 +1,6 @@
 {
   "name": "gatito",
-  "version": "dprtn 0.10",
+  "version": "dprtn 0.11",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
