@@ -64,6 +64,19 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   }, [message]);
 
+  useEffect(() => {
+    const video = document.getElementById('board');
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile && video.autoplay === false) {
+      setMessage("La reproducción automática está restringida en dispositivos móviles.");
+      // Aquí puedes realizar acciones adicionales, como mostrar un mensaje al usuario o requerir una interacción para iniciar la reproducción del video.
+    } else {
+      setMessage("La reproducción automática está permitida o no es un dispositivo móvil.");
+      // Aquí puedes iniciar la reproducción automática del video u otras acciones.
+    }
+  }, []); // Se ejecuta solo una vez después del montaje del componente
+
   useEffect(() => {    
     switch (winner){
       case 0: 
@@ -151,7 +164,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         id='board' 
                         className='video-backgorund' 
                         muted playsInline  
-                        autoPlay
                         style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
 
                         onLoadStart={() => setMessage('Load Start')}
