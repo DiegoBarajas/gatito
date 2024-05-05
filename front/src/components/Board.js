@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../styles/Board.css';
 import Box from './Box';
 
-import { socket } from '../socket';
-
 import board1 from '../assets/board1.mp4';
 import board2 from '../assets/board2.mp4';
 import board3 from '../assets/board3.mp4';
@@ -107,7 +105,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   const handleEnded = () => {
     console.log('HAD ENDED');
-    socket.emit('log', 'HAD ENDED');
+    alert('HAD ENDED')
 
     setUsrCanPlay(true);
     onBoardWrited();
@@ -115,14 +113,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   const playMedia = () => {
     console.log('CAN PLAY');
-    socket.emit('log', 'CAN PLAY')
+    alert('CAN PLAY')
 
     videoRef.current.play();
   }
 
   const onBoardError = (e) => {
-    socket.emit('log', 'ERROR:')
-    socket.emit('log', e)
+    alert(e)
     console.log('ERROR');
 
     setErrorBoard(true);

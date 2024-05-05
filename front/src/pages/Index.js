@@ -5,8 +5,6 @@ import Button from '../components/Button'
 import { Link } from 'react-router-dom'
 import packageJson from '../../package.json'
 
-import { socket } from '../socket';
-
 import statsImg from '../assets/stats.jpg'
 
 const Index = () => {
@@ -15,12 +13,6 @@ const Index = () => {
         top: 0,
         behavior: 'smooth' 
     });
-
-    useEffect(() => {
-        socket.emit('log', 'INDEX')
-
-    }, [])
-    
     return (
         <div className='index-body'>
             <video className='logo-video' autoPlay muted playsInline>
