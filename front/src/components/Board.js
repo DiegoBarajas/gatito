@@ -42,6 +42,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ error, setError ] = useState(false);
   const [ errorBoard, setErrorBoard ] = useState(false);
 
+  const [ messages, setMessages ] = useState([]);
   const [ message, setMessage ] = useState('')
 
   useEffect(() => {
@@ -56,6 +57,12 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
     }
     
   }, [boardType]);
+
+  useEffect(() => {
+
+    setMessages([...messages, message]);
+
+  }, [message]);
 
   useEffect(() => {    
     switch (winner){
@@ -147,17 +154,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         autoPlay
                         style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
 
-                        onLoadStart={() => setMessage('Load Started')}
-                        onLoadStartCapture={() => setMessage('Load Started Capture')}
+                        onLoadStart={() => setMessage('Load Start')}
                         onLoad={() => setMessage('Load')}
-                        onLoadedData={() => {playMedia(); setMessage('Loaded Data')}}
+                        onLoadedData={() => setMessage('Loaded Data')}
+                        onLoadedMetadata={() => setMessage('Loaded Meta Data')}
 
-                        onEnded={handleEnded} 
-                        onErrorCapture={onBoardError} 
-                        onError={onBoardError} 
-                        onAbort={onBoardError} 
-                        onStalled={onBoardError} 
-                        onCanPlay={playMedia} 
+                        onError={() => setMessage('Error')}
+
                       >
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
@@ -178,8 +181,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             <Box type={ types[7] } value={ board[2][1] } onClick={() => onSelectBox(2, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
             <Box type={ types[8] } value={ board[2][2] } onClick={() => onSelectBox(2, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
         </div>
+
+        {
+          messages.map((m, indx) => 
+            <p style={{ position: 'fixed', bottom:  indx*15+'px' , left: 0 }}>{m}</p>
+          )
+        }
         
-        <p style={{ position: 'fixed', bottom: '30px', left: 0 }}>{message}</p>
 
         {
           winLine === null
