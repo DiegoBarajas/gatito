@@ -121,7 +121,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const playMedia = () => {
-    setMessage('Play Media')
+    setMessage('onCanPlay')
     videoRef.current.play();
     setMessage(videoRef.current.outerHTML);
   }
@@ -157,7 +157,8 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         onLoad={() => setMessage('Load')}
                         onLoadedData={() => setMessage('Loaded Data')}
                         onLoadedMetadata={() => setMessage('Loaded Meta Data')}
-                        onCanPlay={() => {playMedia();setMessage('Can Play'); }}
+
+                        onCanPlay={playMedia}
 
                         onError={() => setMessage('Error')}
                         onAbort={() => setMessage('Abort')}
