@@ -64,18 +64,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
 
   }, [message]);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    if (isMobile && video.autoplay === false) {
-      setMessage("La reproducción automática está restringida en dispositivos móviles.");
-      // Aquí puedes realizar acciones adicionales, como mostrar un mensaje al usuario o requerir una interacción para iniciar la reproducción del video.
-    } else {
-      setMessage("La reproducción automática está permitida o no es un dispositivo móvil.");
-      // Aquí puedes iniciar la reproducción automática del video u otras acciones.
-    }
-  }, []); // Se ejecuta solo una vez después del montaje del componente
 
   useEffect(() => {    
     switch (winner){
@@ -199,6 +187,22 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             <p style={{ position: 'fixed', bottom:  indx*15+'px' , left: 0 }}>{m}</p>
           )
         }
+
+        <button
+          style={{ position: 'fixed', bottom: 0, right: 0 }}
+          onClick={() => {
+            const video = videoRef.current;
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (isMobile && video.autoplay === false) {
+              setMessage("La reproducción automática está restringida en dispositivos móviles.");
+              // Aquí puedes realizar acciones adicionales, como mostrar un mensaje al usuario o requerir una interacción para iniciar la reproducción del video.
+            } else {
+              setMessage("La reproducción automática está permitida o no es un dispositivo móvil.");
+              // Aquí puedes iniciar la reproducción automática del video u otras acciones.
+            }
+          }}
+        >Si</button>
         
 
         {
