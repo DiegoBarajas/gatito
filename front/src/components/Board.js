@@ -29,6 +29,8 @@ import winLine7Img from '../assets/winline7.png';
 import winLine8Img from '../assets/winline8.png';
 import tieLineImg from '../assets/tieLine.png';
 
+import Message from './Message';
+
 const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, setCanPlay, onBoardWrited, winner=null, handleEndedWinLine }) => {
 
   const videoRef  = useRef(null);
@@ -40,6 +42,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ error, setError ] = useState(false);
   const [ errorBoard, setErrorBoard ] = useState(false);
 
+  const [ message, setMessage ] = useState('')
 
   useEffect(() => {
     
@@ -118,11 +121,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const onBoardError = () => {
+    setMessage('Error')
     setErrorBoard(true);
   }
 
   const onError = () => {
     setError(true);
+    setMessage('ERROR')
   }
 
 
@@ -134,7 +139,27 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onLoadedData={playMedia} onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                    : <video 
+                        ref={videoRef} 
+                        id='board' 
+                        className='video-backgorund' 
+                        muted playsInline  
+                        style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
+
+                        onLoadStart={() => setMessage('Load Started')}
+                        onLoadStartCapture={() => setMessage('Load Started Capture')}
+                        onLoad={() => setMessage('Load')}
+                        onLoadedData={() => setMessage('Loaded Data')} 
+                        onLoadedMetadata={() => setMessage('Loaded Metadata')}
+
+
+                        onEnded={handleEnded} 
+                        onErrorCapture={onBoardError} 
+                        onError={onBoardError} 
+                        onAbort={onBoardError} 
+                        onStalled={onBoardError} 
+                        onCanPlay={playMedia} 
+                      >
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>
@@ -154,6 +179,8 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             <Box type={ types[7] } value={ board[2][1] } onClick={() => onSelectBox(2, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
             <Box type={ types[8] } value={ board[2][2] } onClick={() => onSelectBox(2, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
         </div>
+        
+        <p style={{ position: 'fixed', bottom: '30px', left: 0 }}>{message}</p>
 
         {
           winLine === null
