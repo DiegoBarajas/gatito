@@ -40,6 +40,8 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ error, setError ] = useState(false);
   const [ errorBoard, setErrorBoard ] = useState(false);
 
+  const [ boardTimeOut, setBoardTimeOut ] = useState(null);
+
   useEffect(() => {
     
     switch (boardType){
@@ -104,24 +106,16 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }, [winner]);
 
   const handleEnded = () => {
-    console.log('HAD ENDED');
-    alert('HAD ENDED')
-
     setUsrCanPlay(true);
     onBoardWrited();
   }
 
   const playMedia = () => {
-    console.log('CAN PLAY');
-    alert('CAN PLAY')
-
+    clearTimeout(boardTimeOut);
     videoRef.current.play();
   }
 
-  const onBoardError = (e) => {
-    alert(e)
-    console.log('ERROR');
-
+  const onBoardError = () => {
     setErrorBoard(true);
   }
 
@@ -130,7 +124,11 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const loadStart = () => {
-    alert('LOAD START')
+    setBoardTimeOut(
+      setTimeout(() => {
+        setErrorBoard(true);
+      }, 5000)
+    );
   }
 
   return (
@@ -141,7 +139,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onLoadStart={loadStart} onLoad={() => alert('LOAD')} onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onLoadStart={loadStart} onEnded={handleEnded} onErrorCapture={onBoardError} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>
