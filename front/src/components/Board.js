@@ -144,14 +144,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         id='board' 
                         className='video-backgorund' 
                         muted playsInline  
+                        autoPlay
                         style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
 
                         onLoadStart={() => setMessage('Load Started')}
                         onLoadStartCapture={() => setMessage('Load Started Capture')}
                         onLoad={() => setMessage('Load')}
-                        onLoadedData={playMedia} 
-                        onLoadedMetadata={playMedia}
-
+                        onLoadedData={() => {playMedia(); setMessage('Loaded Data')}}
 
                         onEnded={handleEnded} 
                         onErrorCapture={onBoardError} 
