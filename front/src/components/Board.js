@@ -121,6 +121,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const playMedia = () => {
+    setMessage('Play Media')
     videoRef.current.play();
     setMessage(videoRef.current.outerHTML);
   }
