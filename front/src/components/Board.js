@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../styles/Board.css';
 import Box from './Box';
 
+import { socket } from '../socket';
+
 import board1 from '../assets/board1.mp4';
 import board2 from '../assets/board2.mp4';
 import board3 from '../assets/board3.mp4';
@@ -104,12 +106,26 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }, [winner]);
 
   const handleEnded = () => {
+    console.log('HAD ENDED');
+    socket.emit('log', 'HAD ENDED');
+
     setUsrCanPlay(true);
     onBoardWrited();
   }
 
   const playMedia = () => {
+    console.log('CAN PLAY');
+    socket.emit('log', 'CAN PLAY')
+
     videoRef.current.play();
+  }
+
+  const onBoardError = (e) => {
+    socket.emit('log', 'ERROR:')
+    socket.emit('log', e)
+    console.log('ERROR');
+
+    setErrorBoard(true);
   }
 
   const onError = () => {
@@ -124,7 +140,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onError={() => setErrorBoard(true)} onAbort={() => setErrorBoard(true)} onStalled={() => setErrorBoard(true)} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onError={onBoardError} onAbort={onBoardError} onStalled={onBoardError} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>

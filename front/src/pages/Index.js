@@ -27,17 +27,17 @@ const Index = () => {
             <div className='buttons-menu'>
 
                 
-                <Link className='button-menu' to='/alone/choose'>
+                <Link className='button-menu' to='/alone/choose' style={{ marginBottom: '20px' }}>
                     <Button color='red' className='button-menu'>
                         Jugar en solitario
                     </Button>
-                </Link><br/>
+                </Link>
 
-                <Link className='button-menu' to='/local'>
+                <Link className='button-menu' to='/local' style={{ marginBottom: '20px' }}>
                     <Button color='blue' className='button-menu'>
                         PVP local
                     </Button> 
-                </Link><br/>
+                </Link>
 
                 <Link className='button-menu' to='/connect'>
                     <Button className='button-menu'>
