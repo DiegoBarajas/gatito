@@ -152,6 +152,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                         id='board' 
                         className='video-backgorund' 
                         muted playsInline  
+                        autoPlay
                         style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
 
                         onLoadStart={() => setMessage('Load Start')}
@@ -203,6 +204,13 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             }
           }}
         >Si</button>
+
+        <button
+          style={{ position: 'fixed', bottom: 40, right: 0 }}
+          onClick={() => {
+            videoRef.current.play();
+          }}
+        >No carga el tablero?</button>
         
 
         {
