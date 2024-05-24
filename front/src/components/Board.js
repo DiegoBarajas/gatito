@@ -29,8 +29,6 @@ import winLine7Img from '../assets/winline7.png';
 import winLine8Img from '../assets/winline8.png';
 import tieLineImg from '../assets/tieLine.png';
 
-import Message from './Message';
-
 const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, setCanPlay, onBoardWrited, winner=null, handleEndedWinLine }) => {
 
   const videoRef  = useRef(null);
@@ -41,9 +39,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   const [ usrCanPlay, setUsrCanPlay ] = useState(false)
   const [ error, setError ] = useState(false);
   const [ errorBoard, setErrorBoard ] = useState(false);
-
-  const [ messages, setMessages ] = useState([]);
-  const [ message, setMessage ] = useState('')
 
   useEffect(() => {
     
@@ -57,13 +52,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
     }
     
   }, [boardType]);
-
-  useEffect(() => {
-
-    setMessages([...messages, message]);
-
-  }, [message]);
-
 
   useEffect(() => {    
     switch (winner){
@@ -121,20 +109,12 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
   }
 
   const playMedia = () => {
-    setMessage('onCanPlay')
     videoRef.current.play();
-  }
-
-  const onBoardError = () => {
-    setMessage('Error')
-    setErrorBoard(true);
   }
 
   const onError = () => {
     setError(true);
-    setMessage('ERROR')
   }
-
 
   return (
     <div className='board-body'>
@@ -144,26 +124,7 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
                 ? <></>
                 : errorBoard
                     ? <img src={boardImg} alt='Board' onLoad={handleEnded} className='img-backgorund' />
-                    : <video 
-                        ref={videoRef} 
-                        id='board' 
-                        className='video-backgorund' 
-                        muted playsInline  
-                        autoPlay
-                        style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} 
-
-                        onLoadStart={() => setMessage('Load Start')}
-                        onLoad={() => setMessage('Load')}
-                        onLoadedData={() => setMessage('Loaded Data')}
-                        onLoadedMetadata={() => setMessage('Loaded Meta Data')}
-
-                        onCanPlay={playMedia}
-
-                        onError={() => setMessage('Error')}
-                        onAbort={() => setMessage('Abort')}
-                        onWaiting={() => setMessage('Waiting')}
-                        onPause={() => setMessage('Pause')}
-                      >
+                    : <video ref={videoRef} id='board' className='video-backgorund' muted playsInline onEnded={handleEnded} onError={() => setErrorBoard(true)} onAbort={() => setErrorBoard(true)} onStalled={() => setErrorBoard(true)} onCanPlay={playMedia} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }}> 
                           <source src={videoSrc} type="video/mp4" />
                           Cannot reproduce the media
                       </video>
@@ -183,25 +144,6 @@ const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, s
             <Box type={ types[7] } value={ board[2][1] } onClick={() => onSelectBox(2, 1)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
             <Box type={ types[8] } value={ board[2][2] } onClick={() => onSelectBox(2, 2)} turn={turn} canPlay={(usrCanPlay && canPlay)} setCanPlay={setCanPlay} onEnded={onEnded} style={(usrCanPlay && canPlay) ? {} : { filter: 'opacity(60%)' }} />
         </div>
-
-        {
-          messages.map((m, indx) => 
-            <p style={{ position: 'fixed', bottom:  indx*15+'px' , left: 0 }}>{m}</p>
-          )
-        }
-
-        <button
-          style={{ position: 'fixed', bottom: 40, right: 0 }}
-          onClick={() => {
-            try{
-              videoRef.current.play();
-              setMessage(videoRef.current.outerHTML)
-            }catch(err) {
-              setMessage("err Click")
-            }
-          }}
-        >No carga el tablero?</button>
-        
 
         {
           winLine === null
