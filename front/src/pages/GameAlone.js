@@ -16,6 +16,8 @@ const GameAlone = () => {
         behavior: 'smooth' 
     });
     
+    const { animations } = JSON.parse(localStorage.getItem('global-config'));
+
     const [ settings ] = useState( getSettings() );
     const [ board, setBoard ] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [ types ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
@@ -176,7 +178,13 @@ const GameAlone = () => {
                 visible={ winner !== null }
             />
 
-            <p style={{ fontSize: 15, margin: '0 10px 0 10px' }}><b>Nota: </b>Si las animaciones no funcionan, en la pantalla principal puedes desactivarlas en las configuraciones.</p>
+            <p style={{ fontSize: 15, margin: '0 10px 0 10px' }}><b>Nota: </b>
+                {
+                    animations 
+                    ? "Si las animaciones no funcionan, en la pantalla principal puedes desactivarlas en las configuraciones."
+                    : "Las animaciones estan desactivadas."
+                }
+            </p>
 
         </div>
     )

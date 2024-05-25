@@ -16,9 +16,10 @@ const GameRemote = ({ game, me, gameCode, amIHost }) => {
         top: 0,
         behavior: 'smooth' 
     });
+    const { animations } = JSON.parse(localStorage.getItem('global-config'));
 
-    const [ types, setTypes ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
-    const [ boardType, setBoardType ] = useState(generateBoardType());
+    const [ types ] = useState( Array.from({ length: 9 }, () => Math.floor(Math.random() * 5) + 1) );
+    const [ boardType ] = useState(generateBoardType());
     const [ boardWrited, setBoardWrited ] = useState(false);
     
     const [ winnerCell, setWinnerCell ] = useState(null);
@@ -138,7 +139,13 @@ const GameRemote = ({ game, me, gameCode, amIHost }) => {
                     />
             }
 
-            <p style={{ fontSize: 15, margin: '0 10px 0 10px' }}><b>Nota: </b>Si las animaciones no funcionan, en la pantalla principal puedes desactivarlas en las configuraciones.</p>
+            <p style={{ fontSize: 15, margin: '0 10px 0 10px' }}><b>Nota: </b>
+                {
+                    animations 
+                    ? "Si las animaciones no funcionan, en la pantalla principal puedes desactivarlas en las configuraciones."
+                    : "Las animaciones estan desactivadas."
+                }
+            </p>
 
 
         </div>
