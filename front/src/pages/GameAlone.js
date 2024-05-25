@@ -176,6 +176,8 @@ const GameAlone = () => {
                 visible={ winner !== null }
             />
 
+            <p style={{ fontSize: 15, margin: '0 10px 0 10px' }}><b>Nota: </b>Si las animaciones no funcionan, en la pantalla principal puedes desactivarlas en las configuraciones.</p>
+
         </div>
     )
 }

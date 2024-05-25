@@ -18,6 +18,10 @@ const socket = (io) => {
 
         socket.on('disconnect', controller.disconnect)
 
+        socket.on('log', (log) => {
+            console.log(log);
+        })
+
     });
 }
 

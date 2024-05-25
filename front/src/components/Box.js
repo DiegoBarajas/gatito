@@ -17,9 +17,11 @@ const Box = ({ value='', type=1, onClick, turn='x', canPlay, setCanPlay, onEnded
     
     const videoRef  = useRef(null);
 
+    const { animations } = JSON.parse(localStorage.getItem('global-config'));
+
     const [ srcO, setSrcO ] = useState(null);
     const [ srcX, setSrcX ] = useState(null);
-    const [ error, setError ] = useState(false);
+    const [ error, setError ] = useState(!animations ? true : false);
 
     useEffect(() => {
         switch(type){

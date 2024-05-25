@@ -61,7 +61,21 @@
     padding: 0px;
 }
 
-.button-stats img {
+.button-settings {
+    position: absolute;
+    right: 130px;
+    bottom: 55px;
+    width: 90px;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0px;
+}
+
+.button-stats img, .button-settings img {
     width: 120%;
     height: 120%;
 

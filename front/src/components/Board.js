@@ -32,13 +32,16 @@ import tieLineImg from '../assets/tieLine.png';
 const Board = ({ board, boardType, onSelectBox, turn, types, onEnded, canPlay, setCanPlay, onBoardWrited, winner=null, handleEndedWinLine }) => {
 
   const videoRef  = useRef(null);
+
+  const { animations } = JSON.parse(localStorage.getItem('global-config'));
   const [ videoSrc, setVideoSrc ] = useState(null);
   const [ winLine, setWinLine ] = useState(null);
   const [ winLineImg, setWinLineImg ] = useState(null);
 
   const [ usrCanPlay, setUsrCanPlay ] = useState(false)
-  const [ error, setError ] = useState(false);
-  const [ errorBoard, setErrorBoard ] = useState(false);
+  const [ error, setError ] = useState(!animations ? true : false);
+  const [ errorBoard, setErrorBoard ] = useState(!animations ? true : false);
+
 
   useEffect(() => {
     
